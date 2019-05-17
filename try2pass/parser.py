@@ -48,7 +48,7 @@ def p_import_list_3(t):
     t[0] = Node("statement_list", None, None, [t[1], t[2]])
 
 def p_import_statement(t):
-    'import_statement : import_expression S_SEMI_COL'
+    'import_statement : import_expression semicolon'
     T = Node(t[2], t[2])
     t[0] = Node("import_statement", None, None, [t[1], T])
 
@@ -57,12 +57,21 @@ def p_import_expression(t):
     T = Node(t[2], t[2])
     t[0] = Node('import_expression', None, None, [T])
     x.append(t[1])
+    x.append(t[2])
 
 def p_main(t):
     '''
     main : VOID MAIN S_LPAREN S_RPAREN S_LCURLY_BRACE statement_list S_RCURLY_BRACE
     '''
+    x.append(t[1])
+    x.append(t[2])
+    x.append(t[3])
+    x.append(t[4])
+    x.append(t[5])
     t[0] = Node("main", None, None, [t[6]])
+
+    x.append(t[7])
+
 
 # statement-list
 def p_statement_list_1(t):
@@ -115,6 +124,7 @@ def p_import_expression(t):
     T = Node(t[2], t[2])
     t[0] = Node('import_expression', None, None, [T])
     x.append(t[1])
+    x.append(t[2])
 # declaration-expression
 def p_declaration_expression_1(t):
     'declaration_expression : assignment_expression'
@@ -128,35 +138,43 @@ def p_declaration_expression_3(t):
     'declaration_expression : CONST type_specifier declaration_expression'
     T = Node(t[1], t[1])
     t[0] = Node("declaration_expression", None, None, [T, t[2], t[3]])
+    x.append(t[1])
 
 # selection-statement
 def p_selection_statement_1(t):
     'selection_statement : IF conditional_expression block_statement_list'
     T = Node(t[1], t[1])
     t[0] = Node("selection_statement", None, None, [T, t[2], t[3]])
+    x.append(t[1])
 
 def p_selection_statement_2(t):
     'selection_statement : selection_statement ELSE IF conditional_expression block_statement_list'
     T1 = Node(t[2], t[2])
     T2 = Node(t[3], t[3])
     t[0] = Node("selection_statement", None, None, [t[1], T1, T2, t[4], t[5]])
+    x.append(t[2])
+    x.append(t[3])
 
 def p_selection_statement_3(t):
     'selection_statement : selection_statement ELSE block_statement_list'
     T = Node(t[2], t[2])
     t[0] = Node("selection_statement", None, None, [t[1], T, t[3]])
+    x.append(t[2])
 
 # iteration-statement:
 def p_iteration_statement_1(t):
     'iteration_statement : WHILE conditional_expression block_statement_list'
     T = Node(t[1], t[1])
     t[0] = Node("iteration_statement", None, None, [T, t[2], t[3]])
+    x.append(t[1])
 
 def p_iteration_statement_2(t):
     'iteration_statement : DO block_statement_list WHILE conditional_expression'
     T1 = Node(t[1], t[1])
     T2 = Node(t[3], t[3])
     t[0] = Node("iteration_statement", None, None, [T1, t[2], T2, t[4]])
+    x.append(t[1])
+    x.append(t[3])
 
 def p_iteration_statement_3(t):
     'iteration_statement : FOR S_LPAREN declaration_expression S_SEMI_COL logical_expression S_SEMI_COL ID OP_ARITH_INCREMENT S_RPAREN block_statement_list'
@@ -168,6 +186,13 @@ def p_iteration_statement_3(t):
     T8 = Node(t[8], t[8])
     T9 = Node(t[9], t[9])
     t[0] = Node("iteration_statement", None, None, [T1, T2, t[3], T4, t[5], T6, T7, T8, T9, t[10]])
+    x.append(t[1])
+    x.append(t[2])
+    x.append(t[4])
+    x.append(t[6])
+    x.append(t[7])
+    x.append(t[8])
+    x.append(t[9])
 
 def p_iteration_statement_4(t):
     'iteration_statement : FOR S_LPAREN declaration_expression  logical_expression ID OP_ARITH_DECREMENT S_RPAREN block_statement_list'
@@ -177,6 +202,11 @@ def p_iteration_statement_4(t):
     T6 = Node(t[6], t[6])
     T7 = Node(t[7], t[7])
     t[0] = Node("iteration_statement", None, None, [T1, T2, t[3], t[4], T5, T6, T7, t[8]])
+    x.append(t[1])
+    x.append(t[2])
+    x.append(t[5])
+    x.append(t[6])
+    x.append(t[7])
 
 # block-statement-list
 def p_block_statement_list_1(t):
@@ -184,6 +214,8 @@ def p_block_statement_list_1(t):
     T1 = Node(t[1], t[1])
     T2 = Node(t[3], t[3])
     t[0] = Node("block_statement_list", None, None, [T1, t[2], T2])
+    x.append(t[1])
+    x.append(t[3])
 
 # conditional-statement
 def p_conditional_expression_1(t):
@@ -191,6 +223,8 @@ def p_conditional_expression_1(t):
     T1 = Node(t[1], t[1])
     T2 = Node(t[3], t[3])
     t[0] = Node("conditional_expression", None, None, [T1, t[2], T2])
+    x.append(t[1])
+    x.append(t[3])
 
 # assignment-expression
 def p_assignment_expression_1(t):
@@ -207,6 +241,7 @@ def p_assignment_expression_2(t):
     '''
     T = Node(t[2], t[2])
     t[0] = Node("assignment_expression", None, None, [t[1], T, t[3]])
+    x.append(t[2])
 
 def p_assignment_expression_3(t):
     '''
@@ -218,6 +253,7 @@ def p_assignment_expression_3(t):
     '''
     T = Node(t[2], t[2])
     t[0] = Node("assignment_expression", None, None, [t[1], T, t[3]])
+    x.append(t[2])
 
 # logical-expression:
 def p_logical_expression_1(t):
@@ -264,12 +300,18 @@ def p_input_expression(t):
     T4 = Node(t[4], t[4])
     T5 = Node(t[5], t[5])
     t[0] = Node("input_expression", None, None, [T1, T2, T3, T4, T5])
+    x.append(t[1])
+    x.append(t[2])
+    x.append(t[3])
+    x.append(t[4])
+    x.append(t[5])
 
 # output-expression
 def p_output_expression(t):
     'output_expression : ID conditional_expression'
     T1 = Node(t[1], t[1])
     t[0] = Node("output_expression", None, None, [T1, t[2]])
+    x.append(t[1])
 
 ''' TERMINALS '''
 # type-specifier
@@ -292,6 +334,7 @@ def p_logical_operators(t):
     '''
     T = Node(t[1], t[1])
     t[0] = Node('logical_operators', None, None, [T])
+    x.append(t[1])
 
 # equality-operators
 def p_equality_operators(t):
@@ -301,6 +344,7 @@ def p_equality_operators(t):
     '''
     T = Node(t[1], t[1])
     t[0] = Node('equality_operators', None, None, [T])
+    x.append(t[1])
 
 # relational-operators
 def p_relational_operators(t):
@@ -312,6 +356,7 @@ def p_relational_operators(t):
     '''
     T = Node(t[1], t[1])
     t[0] = Node('relational_operators', None, None, [T])
+    x.append(t[1])
 
 # math-operators
 def p_math_operators(t):
@@ -327,7 +372,7 @@ def p_math_operators(t):
     '''
     T = Node(t[1], t[1])
     t[0] = Node('math_operators', None, None, [T])
-
+    x.append(t[1])
 # primary-expression
 def p_primary_expression(t):
     '''
@@ -377,7 +422,8 @@ def p_empty(t):
     t[0] = Node('empty', None, None, [T])
 
 def p_error(t):
-    print("ERROR:", t.value)
+    print("PARSE ERROR:", t.value)
+    sys.exit();
 
 def emptyTerminals(x):
     while len(x) > 0:

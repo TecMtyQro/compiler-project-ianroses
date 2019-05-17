@@ -247,6 +247,7 @@ def t_error(t):
     t.type = "ERROR"
     t.value = t.value[0]
     t.lexer.skip(1)
+    sys.exit();
     return t
 
 lexer = lex.lex()

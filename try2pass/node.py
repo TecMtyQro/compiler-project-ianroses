@@ -7,6 +7,7 @@ class Node:
                 self.children = children
             else:
                 self.children = []
+            self.leave = ""
 
     def get_values(self):
         return str(self.token)
